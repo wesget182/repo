@@ -1,0 +1,36 @@
+# @format
+
+# command to run:
+# docker-compose -f docker-comp-test.yml up
+
+# This will start mm-dependencies & postgres db container with it's associated data volumes container
+# and run 'npm run test'
+
+version: '3'
+services:
+  test:
+    image: wesget/mm-dev
+    container_name: 'mm-test-wes'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    depends_on:
+      - postgres-db-test
+    command: npm run test
+
+  postgres-db-test:
+    image: wesget/mm-postgres
+    container_name: mm-test-database
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=mmadmin
+      - POSTGRES_DB=mmdb
+    volumes:
+      - test-db-volume:/var/lib/postgresql/data
+
+# shared volumes for development
+volumes:
+  test-db-volume:
+  node_modules:

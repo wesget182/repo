@@ -1,0 +1,7 @@
+# start FROM a base layer of postgres 9.6.8
+FROM postgres:9.6.8
+
+# copy in ./scripts/db_init.sql to /docker-entrypoint-initdb.d/  
+# It will run automatically from within the container to 
+# build out our own personal test database.
+COPY ./scripts/db_init.sql /docker-entrypoint-initdb.d/

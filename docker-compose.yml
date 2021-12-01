@@ -1,0 +1,13 @@
+version: "3"
+volumes: 
+  node_modules:
+  
+services:
+bash:
+    image: schnodevops/mm-dependencies
+    container_name: "mm-dependencies"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules

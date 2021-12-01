@@ -1,0 +1,18 @@
+# start FROM a base layer of node v10.15
+FROM node:10.15
+
+# Globally install webpack in the container for webpack dev server
+RUN npm install webpack -g
+
+# Set up a WORKDIR for application in the container
+WORKDIR /usr/src/app
+
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json /usr/src/app/
+
+# npm install to create node_modules in the container
+RUN npm install
+
+# EXPOSE your server port
+EXPOSE 3000
+

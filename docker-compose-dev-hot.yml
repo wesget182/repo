@@ -1,0 +1,36 @@
+# @format
+
+# command to run:
+# docker-compose -f docker-compose-dev-hot.yml up
+
+# This will start csps-dependencies & postgres db container with it's
+# associated data volumes container and run 'npm run dev:hot'
+
+version: '3'
+services:
+  dev:
+    image: wesget/mm-dev
+    container_name: mm-dev-hot
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    depends_on:
+      - postgres-db
+    command: npm run dev:hot
+
+  postgres-db:
+    image: wesget/mm-postgres
+    container_name: mm-database
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=mmadmin
+      - POSTGRES_DB=mmdb
+    volumes:
+      - dev-db-volume:/var/lib/postgresql/data
+
+# shared volumes for development
+volumes:
+  dev-db-volume:
+  node_modules:
