@@ -13,7 +13,7 @@ yarn-error.log*
 dist/
 
 # zip file for initial aws deployment
-*.zip
+
 
 # jest coverage
 coverage/
