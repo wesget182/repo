@@ -24,7 +24,7 @@ services:
     image: wesget/mm-postgres
     container_name: mm-test-database
     environment:
-      - POSTGRES_PASSWORD=admin
+      - POSTGRES_PASSWORD=apple123
       - POSTGRES_USER=mmadmin
       - POSTGRES_DB=mmdb
     volumes:
