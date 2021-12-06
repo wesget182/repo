@@ -4,13 +4,13 @@ EB_BUCKET=elasticbeanstalk-us-west-2-797136058145
 # Set ECR REPO as env variable
 ECR_REPO=797136058145.dkr.ecr.us-west-2.amazonaws.com/mm
 # Set the default region for aws cli
-aws configure set default.region us-west-1
+aws configure set default.region us-west-2
 # securely log in to ECR
 eval $(aws ecr get-login --no-include-email --region us-west-1)
 # Build docker image based on our default Dockerfile
-docker build -t schnodevops2/mm .
+docker build -t wesget/mm .
 # tag the image with the Travis-CI SHA
-docker tag schnodevops2/mm:latest 797136058145.dkr.ecr.us-west-2.amazonaws.com/mm:$TRAVIS_COMMIT
+docker tag wesget/mm:latest 797136058145.dkr.ecr.us-west-2.amazonaws.com/mm:$TRAVIS_COMMIT
 # Push built image to ECS
 docker push 797136058145.dkr.ecr.us-west-2.amazonaws.com/mm:$TRAVIS_COMMIT
 # Use the linux sed command to replace the text '<VERSION>' in our Dockerrun file with the Travis-CI SHA
