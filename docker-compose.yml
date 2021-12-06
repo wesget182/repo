@@ -4,7 +4,7 @@ volumes:
   
 services:
 bash:
-    image: schnodevops/mm-dependencies
+    image: wesget/mm-dependencies
     container_name: "mm-dependencies"
     ports:
       - "8080:8080"
