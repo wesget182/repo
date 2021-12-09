@@ -16,12 +16,12 @@ docker push 797136058145.dkr.ecr.us-west-2.amazonaws.com/mm:$TRAVIS_COMMIT
 # Use the linux sed command to replace the text '<VERSION>' in our Dockerrun file with the Travis-CI SHA
 sed -i='' "s/<VERSION>/$TRAVIS_COMMIT/" Dockerrun.aws.json
 # Zip up our modified Dockerrun with our .ebextensions directory
-zip -r myMM.zip Dockerrun.aws.json .ebextensions
+zip -r mm-prod-deploy.zip Dockerrun.aws.json .ebextensions
 # verify contents of the zip file
-unzip -l myMM.zip
+unzip -l mm-prod-deploy.zip
 # Upload zip file to s3 bucket
-aws s3 cp myMM.zip s3://$EB_BUCKET/myMM.zip
+aws s3 cp mm-prod-deploy.zip s3://$EB_BUCKET/mm-prod-deploy.zip
 # Create a new application version with new Dockerrun
-aws elasticbeanstalk create-application-version --application-name mm --version-label $TRAVIS_COMMIT --source-bundle S3Bucket=$EB_BUCKET,S3Key=myMM.zip
+aws elasticbeanstalk create-application-version --application-name mm --version-label $TRAVIS_COMMIT --source-bundle S3Bucket=$EB_BUCKET,S3Key=mm-prod-deploy.zip
 # Update environment to use new version number
 aws elasticbeanstalk update-environment --environment-name Mm-env-1 --version-label $TRAVIS_COMMIT
